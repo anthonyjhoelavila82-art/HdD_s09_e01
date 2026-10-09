@@ -1,0 +1,20 @@
+name: Flujo_Auto_CICD
+on: [push]
+jobs:
+  construir-y-probar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descarga_Repo
+        uses: actions/checkout@v4
+
+      - name: Ejecutando_Docker
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          docker compose up --build
+
+      - name: CommitPush
+        run: |
+          git add .
+          git commit -m "Actualizacion auto"
+          git push origin main
